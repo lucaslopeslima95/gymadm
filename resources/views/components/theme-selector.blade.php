@@ -1,5 +1,5 @@
 <div>
-    <div class="absolute flex flex-row-reverse shrink right-1">
+    <div class="dropdown dropdown-end absolute flex flex-row-reverse shrink right-1">
         <label class="swap swap-rotate">
             <input type="checkbox" onchange="changeTheme()" />
             <svg
@@ -25,7 +25,7 @@
 
             if(theme=='light'){
 
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('theme', 'dark');    
                 theme = 'dark'
 
             }else if(theme=='dark'){
@@ -41,6 +41,6 @@
             const theme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', theme);
         });
-
+    
     </script>
 </div>
