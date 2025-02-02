@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -37,25 +35,16 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-        DB::beginTransaction();
-        try {
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'integrationHash' => Str::random(40),
-            ]);
+        event(new Registered($user));
 
-            event(new Registered($user));
+        Auth::login($user);
 
-            Auth::login($user);
-
-            DB::commit();
-            return redirect(route('dashboard', absolute: false));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Erro ao criar usuário. Por favor, tente novamente.'])->withInput();
-        }
+        return redirect(route('dashboard', absolute: false));
     }
 }

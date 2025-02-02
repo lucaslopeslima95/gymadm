@@ -13,34 +13,24 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <script>
-            if (localStorage.getItem('theme')) {
-                document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        </script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-            <nav class="navbar bg-base-200">
-                <div class="flex-1">
-                </div>
-                <div class="flex-none">
-                    <x-theme-selector />
-                </div>
-            </nav>
+                <header class="bg-white dark:bg-gray-800 shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
 
             <!-- Page Content -->
-            <main class="container mx-auto p-4">
+            <main>
                 {{ $slot }}
             </main>
         </div>
-        @stack('scripts')
     </body>
 </html>

@@ -1,15 +1,10 @@
 <?php
 
-use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/budget', [BudgetController::class, 'index'])->name('budget.index');
-
-Route::post('/budget/store', [BudgetController::class, 'store'])->name('budget.store');
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::get('/dashboard', function () {
