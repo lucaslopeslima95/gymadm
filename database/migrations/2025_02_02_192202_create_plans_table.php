@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('value');
-            $table->text('description');
+            $table->string('name'); 
+            $table->string('description'); 
+            $table->decimal('coast', 10, 2); 
+            $table->date('validate'); 
+            $table->integer('duration'); 
             $table->timestamps();
         });
     }
