@@ -7,6 +7,14 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::get('/treinos', function () {
+    return view('pages/create');
+})->name('create');
+
+Route::get('/register', function(){
+    return view('auth/register');
+})->name('register');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
